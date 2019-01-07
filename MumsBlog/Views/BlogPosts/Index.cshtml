@@ -1,0 +1,92 @@
+﻿@model MumsBlog.Models.PostAndUserViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2>Blog Posts by User</h2>
+<hr />
+<div class="row" style="padding-bottom:80px;">
+    <div class="col-sm-6" style="padding-bottom:80px;">
+        @* Add Create New Post Button *@
+        <a asp-action="Create" asp-route-userId="@Model.UserObj.Id" class="btn btn-primary" style="width:150px;">Add New Post</a>
+    </div>
+    <div class="col-sm-6">
+        @* Display User Details *@
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="UserObj.FirstName" class="control-label"></label>
+            </div>
+            <div class="col-sm-8" style="padding-bottom:5px;">
+                <input asp-for="UserObj.FirstName" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="UserObj.LastName" class="control-label"></label>
+            </div>
+            <div class="col-sm-8" style="padding-bottom:5px;">
+                <input asp-for="UserObj.LastName" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="UserObj.Email" class="control-label"></label>
+            </div>
+            <div class="col-sm-8" style="padding-bottom:5px;">
+                <input asp-for="UserObj.Email" disabled class="form-control" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.BlogPosts.Count() == 0)
+{
+    <div class="text-primary form-border"> No Blog Posts Found! Please add a new post...</div>
+}
+else
+{
+    <div class="form-border">
+        <table class="table table-condensed table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => m.BlogPosts.FirstOrDefault().PostTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.BlogPosts.FirstOrDefault().Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.BlogPosts.FirstOrDefault().Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.BlogPosts.FirstOrDefault().DateAdded)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.BlogPosts)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.PostTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Category)
+                    </td>
+                    <td style="overflow:hidden;">
+                        @Html.DisplayFor(m => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.DateAdded)
+                    </td>
+                    <td></td>
+                    <td>
+                        <Partial name="_TableButtonPartial" , model='new IndividualButtonPartial { BlogPostId = item.Id }' />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+

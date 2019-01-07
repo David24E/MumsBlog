@@ -1,0 +1,56 @@
+﻿@model MumsBlog.Models.BlogPost
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div>
+                    <h2>Add A New Blog Post</h2>
+                    <hr>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PostTitle">Title</label>
+                    <input asp-for="PostTitle" type="text" class="form-control form-control-lg" placeholder="Enter a title">
+                    <span asp-validation-for="PostTitle" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Author">Author</label>
+                    <input asp-for="Author" type="text" class="form-control" placeholder="Enter Author's name">
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Category" class="control-label">Blog Category</label>
+                    <input asp-for="Category" type="text" class="form-control form-control-lg" placeholder="Enter Blog's Category">
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Blog Description</label>
+                    <input asp-for="Description" type="text" class="form-control form-control-lg" placeholder="Enter a brief Description (100)">
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DateAdded">Author</label>
+                    <input asp-for="DateAdded" type="text" class="form-control form-control-lg" value="@DateTime.Now.ToShortDateString()">
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Content">Your story</label>
+                    <textarea asp-for="Content" rows="15" onkeyup="new do_resize(this);" class="form-control form-control-lg" placeholder="Enter a title"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Add Blog Post" class="btn btn-sm btn-primary" />
+                    <a asp-action="Index" @*asp-route="@Model.UserId" *@ class="btn btn-sm btn-success">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <input asp-for="UserId" type="hidden" />
+    </div>
+</form>
